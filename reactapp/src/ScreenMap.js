@@ -259,7 +259,7 @@ function ScreenMap({ google, emailRedux, tokenRedux, aboListRedux, aboListDispat
       fetchMarkers();
       fetchAboUsers();
       fetchAlertNotif();
-//fonction pour mettre à jour régulièrement les informations
+//fonction pour mettre à jour régulièrement les informations.
       setInterval(() => { fetchAboUsers(); fetchAlertNotif(); fetchMarkers() }, 30000)
     }
 
