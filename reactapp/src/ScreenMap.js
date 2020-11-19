@@ -266,11 +266,13 @@ function ScreenMap({ google, emailRedux, tokenRedux, aboListRedux, aboListDispat
     initFunc();
   }, [])
 
+//useEffect qui entraine l'affichage des notifications en attente
   useEffect(() => {
     console.log("notif du useeffect", notifData)
     setTimeout(() => { openNotification('topRight') }, 60000);
   }, [notifData])
 
+//Affichage des marqueurs d'alerte sur la carte
   let alertMarkersJSX = alertMarkersData.map((marker, i) => {
     return ([<Marker key={i + 'alert screen map'}
       position={{ lat: marker.latitude, lng: marker.longitude }}
@@ -283,6 +285,7 @@ function ScreenMap({ google, emailRedux, tokenRedux, aboListRedux, aboListDispat
   }
   );
 
+  //affichage des abonnements sur la carte
   let aboMarkersJSX = aboListRedux.map((abo, i) => {
     return ([<Marker key={i + 'abo screenAbo'}
       onClick={onMarkerClick}

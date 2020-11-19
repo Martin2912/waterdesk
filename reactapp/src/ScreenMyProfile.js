@@ -12,6 +12,7 @@ const { Meta } = Card;
 
 function ScreenMyProfile({ nameRedux, aboListRedux, aboListUpdate, emailRedux, tokenRedux }) {
 
+// Fonction qui gère la suppression d'un abonnement
   const deleteAbo = async (aboId) => {
 
     var delUserAbo = await fetch('users/deleteOne-userAbo', {
@@ -23,6 +24,7 @@ function ScreenMyProfile({ nameRedux, aboListRedux, aboListUpdate, emailRedux, t
     aboListUpdate(aboRes.user_abo);
   }
 
+  //fonction qui gère le status de l'abonnement (actif ou non)
   const updateBoolAbo = async (aboId) => {
     var updateUserAbo = await fetch('users/updateOne-userAbo', {
       method: 'PUT',
@@ -34,6 +36,7 @@ function ScreenMyProfile({ nameRedux, aboListRedux, aboListUpdate, emailRedux, t
     aboListUpdate(aboUpdateRes.user_abo);
   }
 
+//affichage des abonnements sur le profil utilisateur
   var aboComponent = aboListRedux.map((abo, i) => {
     let cardTitle = <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}> <AlertOutlined></AlertOutlined> {abo.nomAbo}</div>
 
