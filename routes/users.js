@@ -118,6 +118,7 @@ router.post('/get-user_alerts', async function(req, res, next) {
       token : req.body.tokenFromFront
     });
     user? user_alerts = user.user_alerts : null;
+    console.log(user_alerts);
   }
   res.json({user_alerts});
 });
