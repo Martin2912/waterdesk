@@ -324,27 +324,6 @@ let sendPushNotification = async(pushToken,nom,type) => {
     });
 }
 
-/* deleteOne Abonnement  */
-router.post('/deleteOne-userAbo', async function(req, res, next) {
-  let user_abo= [];
-
-  if(req.body.emailFromFront != '' && req.body.tokenFromFront != '' && req.body.aboIdFromFront != '' ){
-    const user = await userModel.findOne({
-      email: req.body.emailFromFront,
-      token : req.body.tokenFromFront
-    });
-    if(user){
-      user.user_abo = [...user.user_abo].filter((e)=>{
-        console.log("user.user_abo BACK", e)
-        return (e._id!=req.body.aboIdFromFront)
-      });
-      let savedUser = await user.save();
-      user_abo = savedUser.user_abo;
-       //console.log("userAbo from Back",user_abo)
-    }
-  }
-res.json({user_abo});
-});
 
 /* updateOne Abonnement  */
 router.put('/updateOne-userAbo', async function(req, res, next) {

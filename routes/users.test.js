@@ -118,7 +118,7 @@ describe('tests user alerts', () => {
             .send({ "emailFromFront": "Laura@waterback.com", "tokenFromFront": "bNiFMReZ0oqCmyaKK4P1MPYXovXaigmu", "alertIdFromFront": userAlertToDelete._id })
             .expect(200);
 
-        expect(res.body.user_alerts.length).not.toStrictEqual(0)
+        expect(res.body.user_alerts[0]).not.toStrictEqual(userAlertToDelete)
 
         done()
     })
