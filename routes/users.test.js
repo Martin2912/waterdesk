@@ -146,7 +146,7 @@ describe('save-new_marker', () => {
 
 describe('tests abo', () => {
 
-    let aboUpdate;
+    let aboTest;
     let aboDelete;
 
     //Test ajout nouvel abo ==> success
@@ -157,7 +157,7 @@ describe('tests abo', () => {
             .expect(200);
 
         expect(res.body.result).toStrictEqual(true)
-        aboUpdate =res.body.user_abo[res.body.user_abo.length - 1]
+        aboTest =res.body.user_abo[res.body.user_abo.length - 1]
         done()
     })
 
@@ -165,11 +165,10 @@ describe('tests abo', () => {
     test("update_new-abo", async (done) => {
 
         res = await request(app).put("/users/updateOne-userAbo")
-            .send({ "emailFromFront": "Lauren@lauren.com", "tokenFromFront": "MCeyizoZxJh04MpE4W9uBPTYSzAF5Mdg", "aboIdFromFront": aboUpdate._id })
+            .send({ "emailFromFront": "Lauren@lauren.com", "tokenFromFront": "MCeyizoZxJh04MpE4W9uBPTYSzAF5Mdg", "aboIdFromFront": aboTest._id })
             .expect(200);
 
-            expect(res.body.user_abo[res.body.user_abo.length-1].etatAbo).toBe(!aboUpdate.etatAbo)
-        console.log("test update: aboupdate", aboUpdate)
+            expect(res.body.user_abo[res.body.user_abo.length-1].etatAbo).toBe(!aboTest.etatAbo)
         done()
     })
 
@@ -183,7 +182,6 @@ describe('tests abo', () => {
             .expect(200);
 
         expect(res.body.user_abo.length).not.toBe(0)
-        aboDelete = res.body.user_abo[res.body.user_abo.length - 1]
         done()
     })
 
@@ -191,11 +189,10 @@ describe('tests abo', () => {
     test("delete_one-abo", async (done) => {
 
         res = await request(app).post("/users/deleteOne-userAbo")
-            .send({ "userEmailFromFront": "Laura@waterback.com", "userTokenFromFront": "n04hxIHoAue2r6ZlIZ13En8Zo8Vl2Pne", "aboIdFromFront": aboDelete._id })
+            .send({ "userEmailFromFront": "Laura@waterback.com", "userTokenFromFront": "n04hxIHoAue2r6ZlIZ13En8Zo8Vl2Pne", "aboIdFromFront": aboTest._id })
             .expect(200);
 
-        expect(res.body.user_abo).not.toBe(0)
-
+            expect(res.body.user_abo[res.body.user_abo.length-1]).not.toBe(aboTest)
         done()
     })
 })

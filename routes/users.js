@@ -42,7 +42,7 @@ router.post('/sign-in', async function(req, res, next) {
         if( (Math.round(Math.random()) )==1) {
             objet = {date: "28/03/2020", lieu: "maison", latitude: 0.392,longitude: 9.45, type: bool  };
         }
-        // console.log(objet);
+
         addAlertToOneUser(email,token, objet);
         
       } else {
@@ -110,7 +110,7 @@ router.post('/sign-up', async function(req, res, next) {
 /* get User_Alerts */
 router.post('/get-user_alerts', async function(req, res, next) {
   let user_alerts =[];
-  //console.log(await findUserToAlert());
+
 
   if(req.body.emailFromFront != '' && req.body.tokenFromFront != '' ){
     const user = await userModel.findOne({
@@ -118,7 +118,6 @@ router.post('/get-user_alerts', async function(req, res, next) {
       token : req.body.tokenFromFront
     });
     user? user_alerts = user.user_alerts : null;
-    console.log(user_alerts);
   }
   res.json({user_alerts});
 });
@@ -131,11 +130,6 @@ router.post('/save-new_marker', async function(req, res, next) {
   let result = false;
   let savedMarker = null;
   var dateRaw = new Date();
-  
-  //console.log('date raw',dateRaw);
-  // console.log('date GMT',dateRaw.toGMTString());
-  //var dateMarker = `${dateRaw.getDate()}/${dateRaw.getMonth()}/${dateRaw.getFullYear()} à ${dateRaw.getHours()}h${dateRaw.getMinutes()}`;
-  // console.log('date String',dateMarker);
 
   if(req.body.userEmailFromFront != '' && req.body.userTokenFromFront != '' ){
     const user = await userModel.findOne({
@@ -151,7 +145,7 @@ router.post('/save-new_marker', async function(req, res, next) {
         type: req.body.alertTypeFromFront
       })
       savedMarker = await newMarker.save()
-      //console.log('date in bdd',savedMarker.date);
+
       if(savedMarker){
         result = true;
       }
@@ -206,7 +200,6 @@ router.post('/abo', async function(req, res, next) {
       let savedUser = await user.save();
       user_abo = savedUser.user_abo;
       let taille = savedUser.user_abo.length -1;
-      // console.log(taille);
         if(savedUser.user_abo[taille].latitude==newAbo.latitude && savedUser.user_abo[taille].longitude==newAbo.longitude){
           result = true;
         }
@@ -244,12 +237,10 @@ router.post('/deleteOne-userAbo', async function(req, res, next) {
     });
     if(user){
       user.user_abo = [...user.user_abo].filter((e)=>{
-        console.log("user.user_abo BACK", e)
         return (e._id!=req.body.aboIdFromFront)
       });
       let savedUser = await user.save();
       user_abo = savedUser.user_abo;
-       //console.log("userAbo from Back",user_abo)
     }
   }
 res.json({user_abo});
@@ -267,12 +258,11 @@ router.post('/deleteOne-userAlert', async function(req, res, next) {
     });
     if(user){
       user.user_alerts = [...user.user_alerts].filter((e)=>{
-        // console.log(e._id,"!=",req.body.alertIdFromFront)
         return (e._id!=req.body.alertIdFromFront)
       });
       let savedUser = await user.save();
       user_alerts = savedUser.user_alerts;
-      // console.log("sav",user_alerts)
+
     }
   }
 res.json({user_alerts});
@@ -366,7 +356,6 @@ router.put('/update-tokenNotif', async function(req, res, next) {
       tokenNotif = savedUser.tokenNotif;
     }
   }
-  console.log("backtoken",tokenNotif)
 res.json({tokenNotif});
 });
 
